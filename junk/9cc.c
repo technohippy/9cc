@@ -268,22 +268,13 @@ Token *tokenize(char *p) {
   head.next = NULL;
   Token *cur = &head;
 
-  /* 
-  char *tokens[] = {
-    "==", "!=",
-    "<=", ">=", "<", ">",
-    "*", "/", "+", "-",
-    "(", ")"
-  };
-  */
-
   while (*p) {
     if (isspace(*p)) {
       p++;
       continue;
     }
 
-    if (memcmp(p, "==", 2) == 0 || memcmp(p, "!=", 2) == 0 || memcmp(p, "<=", 2) == 0 || memcmp(p, ">=", 2) == 0) {
+    if (strncmp(p, "==", 2) == 0 || strncmp(p, "!=", 2) == 0 || strncmp(p, "<=", 2) == 0 || strncmp(p, ">=", 2) == 0) {
       cur = new_token(TK_RESERVED, cur, p, 2);
       p += 2;
       continue;
