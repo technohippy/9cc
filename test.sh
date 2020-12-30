@@ -38,6 +38,8 @@ assert 1 '10 >= 10;'
 assert 1 '20 >= 10;'
 assert 0 '10 >= 20;'
 assert 3 'a = 3;'
+assert 3 'abc = 3;'
 assert 14 'a = 3; b = 5 * 6 - 8; a + b / 2;'
+assert 14 'abc = 3; bcd = 5 * 6 - 8; abc + bcd / 2;'
 
 echo OK

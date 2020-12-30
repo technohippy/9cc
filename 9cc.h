@@ -78,3 +78,16 @@ Node *unary();
 Node *primary();
 
 void gen(Node *node);
+
+typedef struct LVar LVar;
+
+struct LVar {
+  LVar *next;
+  char *name;
+  int len;
+  int offset;
+};
+
+LVar *locals;
+
+LVar *find_lvar(Token *tok);

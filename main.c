@@ -19,10 +19,14 @@ int main(int argc, char **argv) {
   printf(".globl main\n");
   printf("main:\n");
 
+  int bsize = 0;
+  for (LVar *var = locals; var; var = var->next)
+    bsize += 8;
+
   // prologue
   printf("  push rbp\n");
   printf("  mov rbp, rsp\n");
-  printf("  sub rsp, 208\n");
+  printf("  sub rsp, %d\n", bsize);
 
   for (int i = 0; code[i]; i++) {
     gen(code[i]);

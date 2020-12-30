@@ -43,7 +43,6 @@ bool consume(char *op) {
 
 Token *consume_ident() {
   if (token->kind == TK_IDENT) {
-    //return token;
     Token *tok = token;
     token = tok->next; 
     return tok;
@@ -104,7 +103,13 @@ Token *tokenize() {
     }
 
     if ('a' <= *p && *p <= 'z') {
-      cur = new_token(TK_IDENT, cur, p++, 1);
+      int len = 0;
+      cur = new_token(TK_IDENT, cur, p, len);
+      do {
+        p++;
+        len++;
+      } while ('a' <= *p && *p <= 'z');
+      cur->len = len;
       continue;
     }
 
