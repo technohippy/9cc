@@ -34,17 +34,28 @@ void error(char *fmt, ...) {
 bool consume(char *op) {
   if (token->kind != TK_RESERVED ||
       strlen(op) != token->len || 
-      memcmp(token->str, op, token->len))
+      memcmp(token->str, op, token->len)) {
     return false;
+  }
   token = token->next;
   return true;
+}
+
+Token *consume_ident() {
+  if (token->kind == TK_IDENT) {
+    //return token;
+    Token *tok = token;
+    token = tok->next; 
+    return tok;
+  }
+  return NULL;
 }
 
 void expect(char *op) {
   if (token->kind != TK_RESERVED ||
       strlen(op) != token->len || 
       memcmp(token->str, op, token->len))
-    error_at(token->str, "'%c'ではありません", op);
+    error_at(token->str, "'%c'ではありません: %c", *op, token->str[0]);
   token = token->next;
 }
 
@@ -69,7 +80,8 @@ Token *new_token(TokenKind kind, Token *cur, char *str, int len) {
   return tok;
 }
 
-Token *tokenize(char *p) {
+Token *tokenize() {
+  char *p = user_input;
   Token head;
   head.next = NULL;
   Token *cur = &head;
@@ -86,8 +98,13 @@ Token *tokenize(char *p) {
       continue;
     }
 
-    if (*p == '<' || *p == '>' || *p == '+' || *p == '-' || *p == '*' || *p == '/' || *p == '(' || *p == ')') {
+    if (*p == '<' || *p == '>' || *p == '+' || *p == '-' || *p == '*' || *p == '/' || *p == '(' || *p == ')' || *p == ';' || *p == '=') {
       cur = new_token(TK_RESERVED, cur, p++, 1);
+      continue;
+    }
+
+    if ('a' <= *p && *p <= 'z') {
+      cur = new_token(TK_IDENT, cur, p++, 1);
       continue;
     }
 
