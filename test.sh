@@ -41,5 +41,9 @@ assert 3 'a = 3;'
 assert 3 'abc = 3;'
 assert 14 'a = 3; b = 5 * 6 - 8; a + b / 2;'
 assert 14 'abc = 3; bcd = 5 * 6 - 8; abc + bcd / 2;'
+assert 3 'return 3;'
+assert 3 'return abc = 3; return bcd = 5 * 6 - 8; abc + bcd / 2;'
+assert 22 'abc = 3; return bcd = 5 * 6 - 8; abc + bcd / 2;'
+assert 14 'abc = 3; bcd = 5 * 6 - 8; return abc + bcd / 2;'
 
 echo OK

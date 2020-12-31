@@ -5,6 +5,7 @@ void error(char *fmt, ...);
 
 typedef enum {
   TK_RESERVED,
+  //TK_RETURN,
   TK_IDENT,
   TK_NUM,
   TK_EOF,
@@ -41,6 +42,7 @@ typedef enum {
   ND_NUM,    // 8
   ND_ASSIGN, // 9
   ND_LVAR,   // 10
+  ND_RETURN, // 11
 } NodeKind;
 
 typedef struct Node Node;
